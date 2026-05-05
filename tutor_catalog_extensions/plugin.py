@@ -1,21 +1,32 @@
+print("🔥 catalog_extensions plugin LOADED")
+
 from tutor import hooks
 
-# Register Django app
+# ✅ Install package in discovery image
 hooks.Filters.ENV_PATCHES.add_item((
-    "discovery-settings",
+    "discovery-production-settings",
     """
-INSTALLED_APPS += ["catalog_extensions"]
+import subprocess
+subprocess.call(["pip", "install", "/openedx/requirements/private.txt"])
 """
 ))
 
-# Register URLs
+# ✅ Register Django app
 hooks.Filters.ENV_PATCHES.add_item((
-    "discovery-urls",
+    "discovery-production-settings",
+    """
+INSTALLED_APPS.append("catalog_extensions")
+"""
+))
+
+# ✅ Add URLs
+hooks.Filters.ENV_PATCHES.add_item((
+    "discovery-production-settings",
     """
 from django.urls import include, path
 
 urlpatterns += [
-    path("", include("catalog_extensions.urls")),
+    path("api/catalog/", include("catalog_extensions.urls")),
 ]
 """
 ))
