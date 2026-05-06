@@ -33,12 +33,13 @@ if not any("cba_catalog_extensions.urls" in str(p) for p in urlpatterns):
 
 
 # ---------------------------------------------------
-# 3. Install your Django app into the Discovery image
+# 3. Clean old package + install correct app (single step)
 # ---------------------------------------------------
 hooks.Filters.IMAGES_BUILD.add_item((
     "discovery",
     """
-# Install catalog extensions from GitHub (canonical source)
-RUN pip install --no-cache-dir git+https://github.com/pselleh/catalog-extensions.git
+# Remove conflicting legacy package (ignore failure if not present)
+RUN pip uninstall -y catalog-extensions || true && \\
+    pip install --no-cache-dir git+https://github.com/pselleh/catalog-extensions.git
 """
 ))
