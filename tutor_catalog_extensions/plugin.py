@@ -4,37 +4,28 @@ from tutor import hooks
 
 
 # ---------------------------------------------------
-# 1. Register Django app
+# 1. Register Django app (FIXED NAME)
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item((
     "discovery-common-settings",
     """
-if "cba_catalog_extensions" not in INSTALLED_APPS:
-    INSTALLED_APPS.append("cba_catalog_extensions")
+if "catalog_extensions" not in INSTALLED_APPS:
+    INSTALLED_APPS.append("catalog_extensions")
 """
 ))
 
 
 # ---------------------------------------------------
-# 2. Register URLs
+# 2. Register URLs (FIXED NAME)
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item((
     "discovery-root-urlconf",
     """
 from django.urls import include, path
 
-if not any("cba_catalog_extensions.urls" in str(p) for p in urlpatterns):
+if not any("catalog_extensions.urls" in str(p) for p in urlpatterns):
     urlpatterns += [
-        path("api/catalog/", include("cba_catalog_extensions.urls")),
+        path("api/catalog/", include("catalog_extensions.urls")),
     ]
 """
-))
-
-
-# ---------------------------------------------------
-# 3. Install your app into Discovery (CORRECT for Tutor 21)
-# ---------------------------------------------------
-hooks.Filters.PIP_REQUIREMENTS.add_item((
-    "discovery",
-    "git+https://github.com/pselleh/catalog-extensions.git"
 ))
