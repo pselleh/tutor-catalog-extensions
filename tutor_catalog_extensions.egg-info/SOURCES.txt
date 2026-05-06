@@ -1,3 +1,4 @@
+pyproject.toml
 setup.py
 tutor_catalog_extensions/__init__.py
 tutor_catalog_extensions/plugin.py
@@ -6,6 +7,6 @@ tutor_catalog_extensions.egg-info/SOURCES.txt
 tutor_catalog_extensions.egg-info/dependency_links.txt
 tutor_catalog_extensions.egg-info/entry_points.txt
 tutor_catalog_extensions.egg-info/top_level.txt
-tutor_catalog_extensions/catalog_extensions/__init__.py
-tutor_catalog_extensions/catalog_extensions/apps.py
-tutor_catalog_extensions/catalog_extensions/urls.py
+tutor_catalog_extensions/cba_catalog_extensions/__init__.py
+tutor_catalog_extensions/cba_catalog_extensions/apps.py
+tutor_catalog_extensions/cba_catalog_extensions/urls.py
