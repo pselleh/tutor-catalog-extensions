@@ -32,12 +32,9 @@ if not any("cba_catalog_extensions.urls" in str(p) for p in urlpatterns):
 
 
 # ---------------------------------------------------
-# 3. Patch Dockerfile (correct way)
+# 3. Install your app into Discovery (CORRECT for Tutor 21)
 # ---------------------------------------------------
-hooks.Filters.DOCKERFILE_PATCHES.add_item((
+hooks.Filters.PIP_REQUIREMENTS.add_item((
     "discovery",
-    """
-# Remove conflicting package and install correct one
-RUN pip uninstall -y catalog-extensions || true && pip install --no-cache-dir git+https://github.com/pselleh/catalog-extensions.git
-"""
+    "git+https://github.com/pselleh/catalog-extensions.git"
 ))
