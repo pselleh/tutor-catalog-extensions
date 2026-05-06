@@ -1,6 +1,6 @@
 from tutor import hooks
 
-# Install your Django app from GitHub
+# Install Django app (correct repo)
 hooks.Filters.CONFIG_DEFAULTS.add_items([
     (
         "DISCOVERY_EXTRA_PIP_PACKAGES",
@@ -8,7 +8,7 @@ hooks.Filters.CONFIG_DEFAULTS.add_items([
     ),
 ])
 
-# Register Django app in Discovery
+# Register app in Discovery
 hooks.Filters.ENV_PATCHES.add_item((
     "discovery-production-settings",
     """
