@@ -4,7 +4,7 @@ from tutor import hooks
 
 
 # ---------------------------------------------------
-# 1. Add local package to openedx image build
+# 1. Copy package into Open edX image build context
 # ---------------------------------------------------
 hooks.Filters.IMAGES_BUILD.add_item(
     (
@@ -16,10 +16,15 @@ hooks.Filters.IMAGES_BUILD.add_item(
 
 
 # ---------------------------------------------------
-# 2. Install package requirements
+# 2. Install package into Open edX image
 # ---------------------------------------------------
-hooks.Filters.OPENEDX_EXTRA_PIP_REQUIREMENTS.add_item(
-    "file:///openedx/catalog-extensions"
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "openedx-dockerfile-post-git-checkout",
+        """
+RUN pip install -e /openedx/catalog-extensions
+""",
+    )
 )
 
 
