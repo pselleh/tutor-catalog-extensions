@@ -22,6 +22,8 @@ hooks.Filters.ENV_PATCHES.add_item(
     (
         "openedx-dockerfile-post-python-requirements",
         """
+COPY ./catalog-extensions /openedx/catalog-extensions
+
 RUN pip install -e /openedx/catalog-extensions
 """,
     )
