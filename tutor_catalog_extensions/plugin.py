@@ -20,7 +20,7 @@ hooks.Filters.IMAGES_BUILD.add_item(
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item(
     (
-        "openedx-dockerfile-post-git-checkout",
+        "openedx-dockerfile-post-python",
         """
 RUN pip install -e /openedx/catalog-extensions
 """,
