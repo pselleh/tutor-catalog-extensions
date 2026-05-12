@@ -10,7 +10,8 @@ hooks.Filters.IMAGES_BUILD.add_item(
     (
         "openedx",
         str("/home/cbaadmin/src/catalog-extensions"),
-        "/openedx/catalog-extensions",
+        "docker.io/overhangio/openedx:21.0.2",
+        (),
     )
 )
 
