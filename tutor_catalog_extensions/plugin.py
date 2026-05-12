@@ -34,11 +34,10 @@ if "catalog_extensions" not in INSTALLED_APPS:
 hooks.Filters.ENV_PATCHES.add_item((
     "discovery-root-urlconf",
     """
-from django.urls import include, path
+from django.conf.urls import include, url
 
-if not any("catalog_extensions.urls" in str(p) for p in urlpatterns):
-    urlpatterns += [
-        path("api/catalog/", include("catalog_extensions.urls")),
-    ]
+urlpatterns += [
+    url(r"^api/catalog/", include("catalog_extensions.urls")),
+]
 """
 ))
