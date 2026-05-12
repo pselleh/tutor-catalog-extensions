@@ -4,20 +4,27 @@ from tutor import hooks
 
 
 # ---------------------------------------------------
-# 1. Install package into Open edX image
+# 1. Copy package into Open edX image build context
+# ---------------------------------------------------
+hooks.Filters.IMAGES_BUILD.add_item((
+    "openedx",
+    ("catalog-extensions", "/openedx/catalog-extensions"),
+))
+
+
+# ---------------------------------------------------
+# 2. Install package into Open edX image
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item((
-    "openedx-dockerfile-post-python-requirements",
+    "openedx-dockerfile-post-python-packages",
     """
-# Install catalog extensions
-COPY ./catalog-extensions /openedx/catalog-extensions
 RUN pip install -e /openedx/catalog-extensions
 """
 ))
 
 
 # ---------------------------------------------------
-# 2. Register Django app
+# 3. Register Django app in Discovery
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item((
     "discovery-common-settings",
@@ -29,7 +36,7 @@ if "catalog_extensions" not in INSTALLED_APPS:
 
 
 # ---------------------------------------------------
-# 3. Register URLs
+# 4. Register Discovery URLs
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item((
     "discovery-root-urlconf",
