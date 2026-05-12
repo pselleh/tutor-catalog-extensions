@@ -8,7 +8,7 @@ setup(
     install_requires=[],
     entry_points={
         "tutor.plugin.v1": [
-            "catalog_extensions = tutor_catalog_extensions.plugin",
+            "tutor_catalog_extensions = tutor_catalog_extensions.plugin",
         ],
     },
 )
