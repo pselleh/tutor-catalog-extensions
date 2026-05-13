@@ -21,11 +21,18 @@ hooks.Filters.IMAGES_BUILD.add_item(
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item(
     (
-        "openedx-dockerfile-post-python-requirements",
+        "openedx-dockerfile-post-git-checkout",
         """
 COPY ./catalog-extensions /openedx/catalog-extensions
+""",
+    )
+)
 
-RUN pip install -e /openedx/catalog-extensions
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "openedx-dockerfile-post-python-requirements",
+        """
+RUN $PIP_COMMAND install -e /openedx/catalog-extensions
 """,
     )
 )
