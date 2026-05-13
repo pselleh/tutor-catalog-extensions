@@ -4,20 +4,7 @@ from tutor import hooks
 
 
 # ---------------------------------------------------
-# 1. Add catalog-extensions into Open edX build context
-# ---------------------------------------------------
-hooks.Filters.IMAGES_BUILD.add_item(
-    (
-        "openedx",
-        str("/home/cbaadmin/src/catalog-extensions"),
-        "docker.io/overhangio/openedx:21.0.2",
-        (),
-    )
-)
-
-
-# ---------------------------------------------------
-# 2. Install catalog_extensions into Open edX image
+# Install catalog_extensions into Open edX image
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item(
     (
@@ -32,7 +19,7 @@ RUN $PIP_COMMAND install -e /openedx/catalog-extensions
 
 
 # ---------------------------------------------------
-# 3. Register Django app in Discovery
+# Register Django app in Discovery
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item(
     (
@@ -46,7 +33,7 @@ if "catalog_extensions" not in INSTALLED_APPS:
 
 
 # ---------------------------------------------------
-# 4. Register Discovery URLs
+# Register Discovery URLs
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item(
     (
