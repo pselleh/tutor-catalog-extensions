@@ -4,7 +4,7 @@ from tutor import hooks
 
 
 # ---------------------------------------------------
-# 1. Copy package into Open edX image build context
+# 1. Add catalog-extensions into Open edX build context
 # ---------------------------------------------------
 hooks.Filters.IMAGES_BUILD.add_item(
     (
@@ -17,21 +17,14 @@ hooks.Filters.IMAGES_BUILD.add_item(
 
 
 # ---------------------------------------------------
-# 2. Install package into Open edX image
+# 2. Install catalog_extensions into Open edX image
 # ---------------------------------------------------
-hooks.Filters.ENV_PATCHES.add_item(
-    (
-        "openedx-dockerfile-post-git-checkout",
-        """
-COPY ./catalog-extensions /openedx/catalog-extensions
-""",
-    )
-)
-
 hooks.Filters.ENV_PATCHES.add_item(
     (
         "openedx-dockerfile-post-python-requirements",
         """
+COPY ./catalog-extensions /openedx/catalog-extensions
+
 RUN $PIP_COMMAND install -e /openedx/catalog-extensions
 """,
     )
