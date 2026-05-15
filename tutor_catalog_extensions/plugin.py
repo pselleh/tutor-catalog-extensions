@@ -1,19 +1,29 @@
-print("🔥 catalog_extensions plugin LOADED")
+print("🔥 tutor_catalog_extensions plugin LOADED")
 
 from tutor import hooks
 
 
 # ---------------------------------------------------
-# Install catalog_extensions into Open edX image
+# Add catalog_extensions package to Discovery build
 # ---------------------------------------------------
 hooks.Filters.ENV_PATCHES.add_item(
     (
-        "openedx-dockerfile-post-python-requirements",
+        "private.txt",
         """
-COPY ./catalog-extensions /openedx/catalog-extensions
-
-RUN $PIP_COMMAND install -e /openedx/catalog-extensions
+-e /openedx/catalog-extensions
 """,
+    )
+)
+
+
+# ---------------------------------------------------
+# Copy package into build context
+# ---------------------------------------------------
+hooks.Filters.MOUNTED_DIRECTORIES.add_item(
+    (
+        "openedx",
+        "/home/cbaadmin/src/catalog-extensions",
+        "/openedx/catalog-extensions",
     )
 )
 
@@ -43,6 +53,47 @@ from django.conf.urls import include, url
 
 urlpatterns += [
     url(r"^api/catalog/", include("catalog_extensions.urls")),
+]
+""",
+    )
+)
+
+# ---------------------------------------------------
+# LMS CSRF / cookie fixes
+# ---------------------------------------------------
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "openedx-lms-common-settings",
+        """
+CSRF_TRUSTED_ORIGINS = [
+    "https://eadvantage.com",
+    "https://apps.eadvantage.com",
+    "https://studio.eadvantage.com",
+    "https://discovery.eadvantage.com",
+]
+
+SESSION_COOKIE_DOMAIN = ".eadvantage.com"
+
+CSRF_COOKIE_DOMAIN = ".eadvantage.com"
+
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+""",
+    )
+)
+
+# ---------------------------------------------------
+# LMS CORS fixes
+# ---------------------------------------------------
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "openedx-lms-common-settings",
+        """
+CORS_ORIGIN_WHITELIST = [
+    "https://eadvantage.com",
+    "https://apps.eadvantage.com",
+    "https://studio.eadvantage.com",
 ]
 """,
     )
