@@ -98,3 +98,24 @@ CORS_ORIGIN_WHITELIST = list(dict.fromkeys([
 """,
     )
 )
+
+# ---------------------------------------------------
+# Production LMS Redis session/cache settings
+# ---------------------------------------------------
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "openedx-lms-common-settings",
+        """
+CACHES["default"] = {
+    "BACKEND": "django_redis.cache.RedisCache",
+    "LOCATION": "redis://redis:6379/1",
+    "OPTIONS": {
+        "CLIENT_CLASS": "django_redis.client.DefaultClient",
+    },
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+""",
+    )
+)
