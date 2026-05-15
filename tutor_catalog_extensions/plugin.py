@@ -65,12 +65,12 @@ hooks.Filters.ENV_PATCHES.add_item(
     (
         "openedx-lms-common-settings",
         """
-CSRF_TRUSTED_ORIGINS = [
+CSRF_TRUSTED_ORIGINS = list(dict.fromkeys([
     "https://eadvantage.com",
     "https://apps.eadvantage.com",
     "https://studio.eadvantage.com",
     "https://discovery.eadvantage.com",
-]
+]))
 
 SESSION_COOKIE_DOMAIN = ".eadvantage.com"
 
@@ -90,11 +90,11 @@ hooks.Filters.ENV_PATCHES.add_item(
     (
         "openedx-lms-common-settings",
         """
-CORS_ORIGIN_WHITELIST = [
+CORS_ORIGIN_WHITELIST = list(dict.fromkeys([
     "https://eadvantage.com",
     "https://apps.eadvantage.com",
     "https://studio.eadvantage.com",
-]
+]))
 """,
     )
 )
