@@ -1,8 +1,12 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "tutor-catalog-extensions"
 version = "0.1.0"
-description = "Tutor plugin for catalog extensions"
-requires-python = ">=3.8"
+description = "Tutor plugin wrapper for catalog extensions"
+requires-python = ">=3.11"
 
 [project.entry-points."tutor.plugin.v1"]
 tutor_catalog_extensions = "tutor_catalog_extensions.plugin"
