@@ -1,6 +1,5 @@
 from tutor import hooks
 
-# Register the Django app in Discovery
 hooks.Filters.ENV_PATCHES.add_item(
     (
         "discovery-common-settings",
