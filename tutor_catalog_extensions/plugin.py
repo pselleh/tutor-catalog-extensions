@@ -1,5 +1,16 @@
 from tutor import hooks
 
+print("🔥 tutor_catalog_extensions plugin LOADED")
+
+hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "private.txt",
+        """
+-e /openedx/catalog-extensions
+""",
+    )
+)
+
 hooks.Filters.ENV_PATCHES.add_item(
     (
         "discovery-common-settings",
